@@ -117,15 +117,23 @@ class GradesourceSession:
             studentNumber = re.compile('input id="(.*)" name=')
             studentString = studentNumber.search(str(x))
             studStr = studentString.group(1).strip()
+            
             # Grabs the gradesource Number
-            gradesourceNumber = re.compile('type="hidden" value="(.*)">')
+            gradesourceNumber = re.compile('type="hidden" value="(.*)"')
+            x =  x.findNext("input")
             gradesourceString = gradesourceNumber.search(str(x))
             gradStr = gradesourceString.group(1).strip()
+
             updatePOSTDict[studStr] = gradStr
             # Grabs the id Number
             idNumber = re.compile('input name="id(.*)" type="hidden"')
             idString = idNumber.search(str(x))
-            updateIDDict[str("id" + idString.group(1).strip())] = gradStr
+            idString = "id"+str(idString.group(1).strip())
+
+            updateIDDict[idString] = gradStr
+
+            # break
+
         # Some Innerjoin magic? yay for SQL concepts!
         joinedDictA = {}
         saveAccount = self.savedAccount
@@ -149,9 +157,11 @@ class GradesourceSession:
         # thats what it requires
         joinedDictB.update(updateIDDict)
         joinedDictB['assessmentId'] = field
-        joinedDictB['studentCount'] = len(saveAccount)
-        s.post('https://www.gradesource.com/updatescores1.asp', data = joinedDictB, cookies = self.cookies)
-        print("Scores Updated")
+        joinedDictB['verifyAccepted'] = 'N'
+        joinedDictB['studentCount'] = str(len(saveAccount))
+        # print joinedDictB
+        ret = s.post('https://www.gradesource.com/updatescores1.asp', data = joinedDictB, cookies = self.cookies)
+        print "Scores Updated"
         for k,v in returnOutput.items():
             print("WARNING: " + k + " HAS A SCORE OF " + v + " WHICH IS LARGER THAN MAX. SCORE INPUTTED. PLEASE CHECK SITE TO CONFIRM")
     
@@ -202,8 +212,8 @@ class GradesourceSession:
                 continue
         # Sends the studentNumber/email dictionary to a global dictionary for other uses
         self.savedAccount = emailDict
-        print(emailDict)
-        print("Students List Generated")
+        print emailDict
+        print "Students List Generated"
         # Sends the name/email dictonary to a global dictionary for the download function
         self.savedName = nameDict
         # Sends the name/PID dictionary to a global dictionary for the download function
