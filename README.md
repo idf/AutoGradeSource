@@ -24,20 +24,20 @@ It has four functions:
 - Send a CSV file to Gradesource to update a certain score using Email (CSV format: Email, score)
 
 
-# To find the course ID
+## To find the course ID
 * Login to Gradesource.
 * Click on edit course.
 * In the URL it should be https://www.gradesource.com/editcourse.asp?id=XXXXX
 * the number after id= is your course ID
 
-# To find the assignment ID
+## To find the assignment ID
 * Login to Gradesource.
 * Click on Scores.
 * Find the Assignment that you would like to modify.
 * In the URL it should be https://www.gradesource.com/editscores1.asp?id=XXXXXX
 * the number after id= is your assignment ID
 
-# To use
+## To use
 To download student name and email (don't forget to use quotes):
 ```sh
 python -c 'import gradesourceuploader; gradesourceuploader.downloadEmail(login, courseID)'
