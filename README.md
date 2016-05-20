@@ -1,12 +1,11 @@
 # AutoGradeSource
-
-# Original author:
+Automate the workflow on [GradeSource](http://gradesource.com/).
+## Original author:
 https://github.com/chushao/Gradesource-Uploader
 
 Chu Shao (Jan 1, 2013)
 
-
-# REQUIREMENTS
+# Requirements
 Python 2.7.x. This will not work on Python3++ and is untested for anything besides Python 2.7.x
 
 # Usage
@@ -72,10 +71,6 @@ EXAMPLE:
 python -c 'import gradesourceuploader; gradesourceuploader.updateScoresByEmail("cshao", "99999", "111111", "grades.csv", "0")'
 ```
 
-the CSV file should contain
-* email@email.com,score
-* score can be empty as well
-
 To upload scores from a CSV file using PID:
 ```sh
 python -c 'import gradesourceuploader; gradesourceuploader.updateScoresByPID(login, courseID, assignmentID, CSVFile, overwrite)'
@@ -83,7 +78,11 @@ python -c 'import gradesourceuploader; gradesourceuploader.updateScoresByPID(log
 
 EXAMPLE:
 ```sh
-python -c 'import gradesourceuploader; gradesourceuploader.updateScoresByPID(login, courseID, assignmentID, CSVFile, "1")'
+python -c 'import gradesourceuploader; gradesourceuploader.updateScoresByPID("cshao", "99999", "111111",, "grades.csv", "1")'
 ```
+
+the CSV file should contain
+* email@email.com,score
+* score can be empty as well
 
 See **sample.csv** for example of updateScores
